@@ -1,0 +1,37 @@
+@host = http://localhost:3000
+@img_path = ./doc/example.jpg
+
+###  
+GET http://localhost:3000/process
+
+### Request to extract-text endpoint with URL
+
+POST http://localhost:3000/process/extract-text
+
+
+### azure endpoint, peticion post y recibe un file.image
+GET  localhost:3000/azure
+Content-Type: multipart/form-data; boundary=MyBoundary
+
+--MyBoundary
+Content-Disposition: form-data; name="image"; filename="sample_image.jpg"
+Content-Type: image/jpeg
+
+< {{img_path}}
+--MyBoundary--
+
+
+### 1fb8e966-fe26-4326-bbcb-95c47c393218?api-version=2023-07-31
+### 
+# curl -v -X GET "{endpoint}/formrecognizer/documentModels/{modelId}/analyzeResults/{resultId}?api-version=2023-07-31" -H "Ocp-Apim-Subscription-Key: {key}"
+
+@endpoint = https://production-hazconta.cognitiveservices.azure.com/formrecognizer/documentModels
+
+@modelId = prebuilt-document
+# c6181f90-1c28-4bc8-b672-9212bf160fcb?api-version=2023-07-31
+@resultId = 703759b6-6164-4311-9844-1e8a2ca818fa?api-version=2023-07-31
+
+@key = d289458d75d24d8d98b65fb1347f90e6
+
+GET {{endpoint}}/{{modelId}}/analyzeResults/{{resultId}}
+Ocp-Apim-Subscription-Key: {{key}}
